@@ -1,11 +1,12 @@
 #include "get_next_line.h"
-
 char    *get_line(char *str)
 {
     int i;
     char *line;
 
     i = 0;
+    if (!str[i])
+		return (NULL);
     while (str[i] != '\0' && str[i] != '\n' )
         i++;
     line = ft_substr(str,0,i + 1);
@@ -13,13 +14,17 @@ char    *get_line(char *str)
 }
 char    *next_line(char *str)
 {
-    int j;
     int i;
     char *next;
 
     i = 0;
-    while (str[i] != '\0' && str[i] != '\n' )
+    while (str[i] != '\0' && str[i] != '\n')
         i++;
+    if (!str[i])
+	{
+		free (str);
+		return (NULL);
+	}
     next = ft_substr(str,i + 1,ft_strlen(str + i + 1));
     if (!next)
         return (NULL);
@@ -28,14 +33,14 @@ char    *next_line(char *str)
 }
 char    *read_line(char *str,int fd)
 {
-    char *buffer;
-    int read_ret;
+    char    *buffer;
+    ssize_t read_ret;
 
     read_ret = 1;
     buffer = (char *)malloc(BUFFER_SIZE + 1);
     if (!buffer)
         return (NULL);
-    while (!ft_strchr(buffer,'\n') && read_ret != 0)
+    while (!ft_strchr(str,'\n') && read_ret != 0)
     {
         read_ret = read(fd,buffer,BUFFER_SIZE);
         if (read_ret == -1)
@@ -49,24 +54,21 @@ char    *read_line(char *str,int fd)
     free(buffer);
     return str;
 }
+
 char    *get_next_line(int fd)
 {
-    static char *stock;
-    char *line;
+    static char *line;
+    char *stock;
     if(fd < 0 || BUFFER_SIZE < 1)
         return  NULL;
-    stock = read_line(stock,fd);
-    if (!stock)
+    line = read_line(line,fd);
+    if (!line)
         return NULL;
-    if (! *stock)
-    {
-        free(stock);
-        return NULL;
-    }
-    line = get_line(stock);
-    stock = next_line(stock);
-    return line;
+    stock = get_line(line);
+    line = next_line(line);
+    return stock;
 }
+
 int main()
 {
     int fd ;
