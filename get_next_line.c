@@ -8,7 +8,7 @@ char    *get_line(char *str)
     i = 0;
     while (str[i] != '\0' && str[i] != '\n' )
         i++;
-    line = ft_substr(str,0,i);
+    line = ft_substr(str,0,i + 1);
     return line;
 }
 char    *next_line(char *str)
@@ -20,13 +20,10 @@ char    *next_line(char *str)
     i = 0;
     while (str[i] != '\0' && str[i] != '\n' )
         i++;
-    next = (char *)malloc(ft_strlen(str) - i + 1);
+    next = ft_substr(str,i + 1,ft_strlen(str + i + 1));
     if (!next)
         return (NULL);
-    j = 0;
-    while (str[i])
-        next[j++] = str[i++];
-    next[j] = '\0';
+    free(str);
     return next;
 }
 char    *read_line(char *str,int fd)
@@ -41,7 +38,7 @@ char    *read_line(char *str,int fd)
     while (!ft_strchr(buffer,'\n') && read_ret != 0)
     {
         read_ret = read(fd,buffer,BUFFER_SIZE);
-        if (read_ret = -1)
+        if (read_ret == -1)
         {
             free(buffer);
             return NULL;
@@ -54,28 +51,32 @@ char    *read_line(char *str,int fd)
 }
 char    *get_next_line(int fd)
 {
-    static char *line;
-    char *str;
+    static char *stock;
+    char *line;
     if(fd < 0 || BUFFER_SIZE < 1)
         return  NULL;
-    str = read_line(str,fd);
-    if (!str)
+    stock = read_line(stock,fd);
+    if (!stock)
         return NULL;
-    line = get_line(str);
-    str = next_line(str);
+    if (! *stock)
+    {
+        free(stock);
+        return NULL;
+    }
+    line = get_line(stock);
+    stock = next_line(stock);
     return line;
 }
 int main()
 {
     int fd ;
     fd = open("test.txt", O_CREAT, 0777);
-    printf("%d",fd);
-    char *line;
     printf("%s",get_next_line(fd));
-    // while (line)
-    // {
-    //     printf("%s",line);
-    //     line = get_next_line(fd);
-    // }
-    
+    printf("%s",get_next_line(fd));
+    printf("%s",get_next_line(fd));
+    printf("%s",get_next_line(fd));
+    printf("%s",get_next_line(fd));
+    printf("%s",get_next_line(fd));
+    printf("%s",get_next_line(fd));
+    printf("%s",get_next_line(fd));
 }
