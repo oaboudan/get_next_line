@@ -69,16 +69,16 @@ char    *get_next_line(int fd)
     return stock;
 }
 
-int main()
-{
-    int fd ;
-    fd = open("test.txt", O_CREAT, 0777);
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd));
-}
+// int main()
+// {
+//     int fd ;
+//     fd = open("test.txt", O_CREAT, 0777);
+//     char *line;
+//     line = get_next_line(fd);
+//     while (line)
+//     {
+//         printf("%s",line);
+//         line = get_next_line(fd);
+//     }
+    
+// }

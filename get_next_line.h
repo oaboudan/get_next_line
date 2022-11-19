@@ -9,9 +9,10 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-char	*ft_strchr( char *s, int c);
+int		ft_strchr( char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup( char *s1);
 size_t	ft_strlen( char *src);
 char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*get_next_line(int fd);
 #endif

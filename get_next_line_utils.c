@@ -58,6 +58,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*res;
 	size_t	j;
 	size_t	i;
+	size_t size_s1;
+	size_t size_s2;
 
 	i = 0;
 	j = -1;
@@ -66,32 +68,37 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
-		return (ft_strdup(s1));
-	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+		return (NULL);
+	size_s1 = ft_strlen(s1);
+	size_s2 = ft_strlen(s2);
+	res = (char *)malloc(size_s1 + size_s2 + 1);
 	if (!res)
 		return (NULL);
-	while (++j < ft_strlen(s1))
+	while (++j < size_s1)
 		res[j] = s1[j];
-	while (i < ft_strlen(s2))
+	while (i < size_s2)
 		res[j++] = s2[i++];
 	res[j] = '\0';
+	free(s1);
 	return (res);
 }
 
-char	*ft_strchr(char *s, int c)
+int	ft_strchr(char *s, int c)
 {
 	size_t	i;
+	size_t size;
 
 	i = 0;
 	if (!s)
 		return (0);
 	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
-	while (i <= ft_strlen(s))
+		return (1);
+	size = ft_strlen(s);
+	while (i <= size)
 	{
 		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+			return (1);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
