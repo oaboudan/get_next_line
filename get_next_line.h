@@ -1,6 +1,18 @@
-#ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oaboudan <oaboudan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/21 16:15:01 by oaboudan          #+#    #+#             */
+/*   Updated: 2022/11/21 16:58:39 by oaboudan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFFER_SIZE 32
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -15,4 +27,5 @@ char	*ft_strdup( char *s1);
 size_t	ft_strlen( char *src);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
+
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oaboudan <oaboudan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/21 16:14:44 by oaboudan          #+#    #+#             */
+/*   Updated: 2022/11/21 16:43:14 by oaboudan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
@@ -53,13 +65,14 @@ char	*ft_strdup(char *s1)
 	p[i] = '\0';
 	return (p);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
 	size_t	j;
 	size_t	i;
-	size_t size_s1;
-	size_t size_s2;
+	size_t	size_s1;
+	size_t	size_s2;
 
 	i = 0;
 	j = -1;
@@ -79,14 +92,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (i < size_s2)
 		res[j++] = s2[i++];
 	res[j] = '\0';
-	free(s1);
-	return (res);
+	return ((free(s1)), (res));
 }
 
 int	ft_strchr(char *s, int c)
 {
 	size_t	i;
-	size_t size;
+	size_t	size;
 
 	i = 0;
 	if (!s)
