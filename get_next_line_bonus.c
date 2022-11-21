@@ -6,13 +6,13 @@
 /*   By: oaboudan <oaboudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:16:59 by oaboudan          #+#    #+#             */
-/*   Updated: 2022/11/21 18:44:16 by oaboudan         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:45:25 by oaboudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*get_line(char *str)
+char	*get_l(char *str)
 {
 	int		i;
 	char	*line;
@@ -43,6 +43,7 @@ char	*next_line(char *str)
 	if (!next)
 		return (NULL);
 	free (str);
+	str = NULL;
 	return (next);
 }
 
@@ -61,12 +62,14 @@ char	*read_line(char *str, int fd)
 		if (read_ret == -1)
 		{
 			free(buffer);
-			return (NULL);
+			buffer = NULL;
+			return (free(str), str = NULL, NULL);
 		}
 		buffer[read_ret] = '\0';
 		str = ft_strjoin(str, buffer);
 	}
 	free(buffer);
+	buffer = NULL;
 	return (str);
 }
 
@@ -80,7 +83,7 @@ char	*get_next_line(int fd)
 	str[fd] = read_line(str[fd], fd);
 	if (!str[fd])
 		return (NULL);
-	line = get_line(str[fd]);
+	line = get_l(str[fd]);
 	str[fd] = next_line(str[fd]);
 	return (line);
 }
@@ -99,4 +102,23 @@ char	*get_next_line(int fd)
 // 	//printf("%s",get_next_line(fd1));
 // 	printf("%s",get_next_line(fd2));
 // 	printf("%s",get_next_line(fd2));
+// }
+// int main()
+// {
+// 	int fd = open ("sss", O_RDONLY);
+// 	int fd1 = open ("ss", O_RDONLY);
+// 	char *s = get_next_line(fd);
+// 	char *s1 = get_next_line(fd1);
+
+// 	while(1)
+// 	{
+// 		printf("%s", s);
+// 		free(s);
+// 		s = get_next_line(fd);
+// 		printf("%s", s1);
+// 		free(s1);
+// 		s1 = get_next_line(fd1);
+// 		if (!s)
+// 			break;
+// 	}
 // }

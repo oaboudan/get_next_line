@@ -6,13 +6,13 @@
 /*   By: oaboudan <oaboudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:14:38 by oaboudan          #+#    #+#             */
-/*   Updated: 2022/11/21 18:43:22 by oaboudan         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:43:20 by oaboudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_line(char *str)
+char	*get_l(char *str)
 {
 	int		i;
 	char	*line;
@@ -43,6 +43,7 @@ char	*next_line(char *str)
 	if (!next)
 		return (NULL);
 	free (str);
+	str = NULL;
 	return (next);
 }
 
@@ -61,12 +62,14 @@ char	*read_line(char *str, int fd)
 		if (read_ret == -1)
 		{
 			free(buffer);
-			return (NULL);
+			buffer = NULL;
+			return (free(str), str = NULL, NULL);
 		}
 		buffer[read_ret] = '\0';
 		str = ft_strjoin(str, buffer);
 	}
 	free(buffer);
+	buffer = NULL;
 	return (str);
 }
 
@@ -80,7 +83,18 @@ char	*get_next_line(int fd)
 	str = read_line(str, fd);
 	if (!str)
 		return (NULL);
-	line = get_line(str);
+	line = get_l(str);
 	str = next_line(str);
 	return (line);
 }
+// int main()
+// {
+// 	int fd = open ("sss", O_RDONLY);
+// 	char *s = get_next_line(fd);
+
+// 	while(s)
+// 	{
+// 		printf("%s", s);
+// 		s = get_next_line(fd);
+// 	}
+// }

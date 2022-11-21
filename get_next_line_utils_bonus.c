@@ -6,7 +6,7 @@
 /*   By: oaboudan <oaboudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:25:15 by oaboudan          #+#    #+#             */
-/*   Updated: 2022/11/21 18:25:18 by oaboudan         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:05:13 by oaboudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (i < size_s2)
 		res[j++] = s2[i++];
 	res[j] = '\0';
-	return ((free(s1)), (res));
+	return ((free(s1)), (s1 = NULL), (res));
 }
 
 int	ft_strchr(char *s, int c)
