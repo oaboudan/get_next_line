@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oaboudan <oaboudan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:14:38 by oaboudan          #+#    #+#             */
-/*   Updated: 2022/11/21 18:43:22 by oaboudan         ###   ########.fr       */
+/*   Created: 2022/11/21 17:16:59 by oaboudan          #+#    #+#             */
+/*   Updated: 2022/11/21 18:44:16 by oaboudan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_line(char *str)
 {
@@ -72,15 +72,31 @@ char	*read_line(char *str, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[10241];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd > 10241)
 		return (NULL);
-	str = read_line(str, fd);
-	if (!str)
+	str[fd] = read_line(str[fd], fd);
+	if (!str[fd])
 		return (NULL);
-	line = get_line(str);
-	str = next_line(str);
+	line = get_line(str[fd]);
+	str[fd] = next_line(str[fd]);
 	return (line);
 }
+// int main()
+// {
+// 	int fd,fd1,fd2;
+// 	fd = open("test1.txt",O_CREAT,0777);
+// 	fd1 = open("test2.txt",O_CREAT,0777);
+// 	fd2 = open("test.txt",O_CREAT,0777);
+// 	printf("%s",get_next_line(fd));
+// 	printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd));
+// 	//printf("%s",get_next_line(fd1));
+// 	printf("%s",get_next_line(fd2));
+// 	printf("%s",get_next_line(fd2));
+// }
